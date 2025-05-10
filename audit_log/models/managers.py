@@ -145,6 +145,7 @@ class AuditLog(object):
                 # as ForeignKey fields
                 if isinstance(field, models.OneToOneField):
                     field.__class__ = models.ForeignKey
+                    field._unique = False
 
                 if field.primary_key or field.unique:
                     # unique fields of the original model
