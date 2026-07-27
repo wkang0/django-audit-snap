@@ -28,8 +28,8 @@ setup(
     license="New BSD License (http://www.opensource.org/licenses/bsd-license.php)",
     description="Audit trail for django models",
     long_description=get_readme(),
-    url="https://github.com/wkang0/django-audit-log",
-    download_url="https://github.com/wkang0/django-audit-log/releases",
+    url="https://github.com/wkang0/django-audit-log2",
+    download_url="https://github.com/wkang0/django-audit-log2/releases",
     include_package_data=True,
     zip_safe=False,
     classifiers=STATUS

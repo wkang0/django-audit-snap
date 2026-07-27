@@ -5,9 +5,9 @@ The setup script for this package requires setuptools.
 If you want to install the development version, check out the code from
 the GitHub repository:
 
-    git clone https://github.com/wkang0/django-audit-log.git
+    git clone https://github.com/wkang0/django-audit-log2.git
 
-cd into the django-audit-log directory and run:
+cd into the django-audit-log2 directory and run:
 
 	pip install -e .
 
