@@ -20,7 +20,7 @@ def get_readme():
 
 
 setup(
-    name="django-audit-log2",
+    name="django-audit-snap",
     version=__version__,
     packages=find_packages(exclude=["testproject"]),
     author="Wenjun Kang",
@@ -28,8 +28,8 @@ setup(
     license="New BSD License (http://www.opensource.org/licenses/bsd-license.php)",
     description="Audit trail for django models",
     long_description=get_readme(),
-    url="https://github.com/wkang0/django-audit-log2",
-    download_url="https://github.com/wkang0/django-audit-log2/releases",
+    url="https://github.com/wkang0/django-audit-snap",
+    download_url="https://github.com/wkang0/django-audit-snap/releases",
     include_package_data=True,
     zip_safe=False,
     classifiers=STATUS

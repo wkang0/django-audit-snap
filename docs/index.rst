@@ -1,6 +1,6 @@
-.. django-audit-log2 documentation master file.
+.. django-audit-snap documentation master file.
 
-Welcome to django-audit-log2's documentation!
+Welcome to django-audit-snap's documentation!
 ============================================
 
 Adds support for tracking who changed what models through your Django application.

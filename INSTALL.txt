@@ -1,13 +1,13 @@
-Installing the latest development version of django-audit-log2
+Installing the latest development version of django-audit-snap
 ----------------------------------------------------------
 The setup script for this package requires setuptools.
 
 If you want to install the development version, check out the code from
 the GitHub repository:
 
-    git clone https://github.com/wkang0/django-audit-log2.git
+    git clone https://github.com/wkang0/django-audit-snap.git
 
-cd into the django-audit-log2 directory and run:
+cd into the django-audit-snap directory and run:
 
 	pip install -e .
 
@@ -17,4 +17,4 @@ wish.
 
 To install from PyPI:
 
-	pip install django-audit-log2
+	pip install django-audit-snap

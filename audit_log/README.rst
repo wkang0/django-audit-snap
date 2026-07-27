@@ -1,5 +1,5 @@
 ============================
-django-audit-log2
+django-audit-snap
 ============================
 
 Introduction

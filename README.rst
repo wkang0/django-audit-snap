@@ -1,5 +1,5 @@
 ============================
-django-audit-log2
+django-audit-snap
 ============================
 
 Tracking changes to django models.
@@ -19,7 +19,7 @@ Quickstart Guide
 
 Install it with pip from PyPi::
 
-    pip install django-audit-log2
+    pip install django-audit-snap
 
 Add ``audit_log.middleware.UserLoggingMiddleware`` to your ``MIDDLEWARE_CLASSES``::
 
