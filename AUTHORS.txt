@@ -4,7 +4,7 @@ Core Committers:
 
 Fork Maintainer:
 
-* Wenjun Kang <wkang0 at uchicago.edu>
+* Wenjun Kang <wkang0 at yahoo.com>
 
 Contributors:
 

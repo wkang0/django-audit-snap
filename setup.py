@@ -24,7 +24,7 @@ setup(
     version=__version__,
     packages=find_packages(exclude=["testproject"]),
     author="Wenjun Kang",
-    author_email="wkang0@uchicago.edu",
+    author_email="wkang0@yahoo.com",
     license="New BSD License (http://www.opensource.org/licenses/bsd-license.php)",
     description="Audit trail for django models",
     long_description=get_readme(),
