@@ -4,7 +4,7 @@ Installation
 
 Install from PyPI with ``easy_install`` or ``pip``::
 
-    pip install django-audit-log
+    pip install django-audit-log2
 
 to hack on the code you can symlink the package in your site-packages from the source tree::
 

@@ -20,7 +20,7 @@ def get_readme():
 
 
 setup(
-    name="django-audit-log",
+    name="django-audit-log2",
     version=__version__,
     packages=find_packages(exclude=["testproject"]),
     author="Wenjun Kang",

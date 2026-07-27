@@ -1,25 +1,5 @@
-.. image:: https://readthedocs.org/projects/django-audit-log/badge/?version=latest
-   :target: https://readthedocs.org/projects/django-audit-log/?badge=latest
-   :alt: Documentation Status
-
-.. image:: https://badges.gitter.im/Join Chat.svg
-   :target: https://gitter.im/Atomidata/django-audit-log?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
-
-.. image:: https://pypip.in/version/django-audit-log/badge.svg
-    :target: https://pypi.python.org/pypi/django-audit-log/
-    :alt: Latest Version
-
-.. image:: https://pypip.in/py_versions/django-audit-log/badge.svg
-    :target: https://pypi.python.org/pypi/django-audit-log/
-    :alt: Supported Python versions
-
-.. image:: https://pypip.in/format/django-audit-log/badge.svg
-    :target: https://pypi.python.org/pypi/django-audit-log/
-    :alt: Download format
-
-
 ============================
-django-audit-log
+django-audit-log2
 ============================
 
 Tracking changes to django models.
@@ -28,13 +8,10 @@ Tracking changes to django models.
 * Model fields for keeping track of the user and session that created and modified a model instance.
 * Abstract model class with fields ``created_by`` and ``modified_by`` fields.
 * A model manager class that can automatically track changes made to a model in the database.
-* Support for Django 1.6 and 1.7, South migrations, Django 1.7 migrations and custom User classes.
-* Python 3 and 2.x support
+* Support for modern Django versions and custom User classes.
+* Python 3.8+ support
 
-`The documentation can be found here <http://django-audit-log.readthedocs.org/en/latest/index.html>`_
-
-**Tracking full model history on M2M relations is not supported yet.**
-**Version 0.3.0 onwards is tested with Django 1.6. It should work with older versions of Django, but may break things unexpectedly!**
+**Tracking full model history on M2M relations is not supported.**
 
 
 Quickstart Guide
@@ -42,7 +19,7 @@ Quickstart Guide
 
 Install it with pip from PyPi::
 
-    pip install django-audit-log
+    pip install django-audit-log2
 
 Add ``audit_log.middleware.UserLoggingMiddleware`` to your ``MIDDLEWARE_CLASSES``::
 
@@ -106,7 +83,4 @@ You can then query the audit log::
             <ProductAuditLogEntry: Product: My Gadget created at 2011-02-25 06:03:57.751222>,
             <ProductAuditLogEntry: Product: My widget created at 2011-02-25 06:03:42.027220>]
 
-`The documentation can be found here <http://django-audit-log.readthedocs.org/en/latest/index.html>`_
-
-
-*Note: This project was not maintained actively for a while. One of the reasons was that I wasn't receiving email notifications from GitHub. The other reason: We were using it just on a couple of projects that were frozen to old versions of Django. If you need any help with the project you can contact me by email directly if I don't respond to your GitHub issues. Feel free to nudge me over email if you have a patch for something. You can find my email in the AUTHORS file.*
+*Note: This is a maintained fork of the original django-audit-log by Vasil Vangelovski (Atomidata), updated for modern Django and Python versions.*

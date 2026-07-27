@@ -1,9 +1,6 @@
-.. django-audit-log documentation master file, created by
-   sphinx-quickstart on Wed Apr  6 10:51:31 2011.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. django-audit-log2 documentation master file.
 
-Welcome to django-audit-log's documentation!
+Welcome to django-audit-log2's documentation!
 ============================================
 
 Adds support for tracking who changed what models through your Django application.
