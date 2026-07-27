@@ -175,6 +175,11 @@ class AuditLog(object):
 
                 if field.remote_field:
                     field.remote_field.on_delete = models.DO_NOTHING
+                    # Disable the DB-level FK constraint so that stale FK values
+                    # in log entries don't trigger IntegrityErrors when related
+                    # objects are deleted (DO_NOTHING only suppresses Python-level
+                    # cascade; without db_constraint=False the DB still enforces it).
+                    field.db_constraint = False
                     # disable reverse accessor to avoid related_name clashes
                     # with the original model's fields
                     field.remote_field.related_name = "+"
