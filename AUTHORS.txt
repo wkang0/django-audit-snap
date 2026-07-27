@@ -1,6 +1,10 @@
-Core Comitters:
+Core Committers:
 
-* Vasil Vangelovski <vv at atomidata.com>
+* Vasil Vangelovski <vv at atomidata.com> (original author)
+
+Fork Maintainer:
+
+* Wenjun Kang <wkang0 at uchicago.edu>
 
 Contributors:
 
