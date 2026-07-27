@@ -93,7 +93,7 @@ class Product(models.Model):
     name = models.CharField(max_length=150)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    category = models.ForeignKey(ProductCategory)
+    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
 
     audit_log = AuditLog()
 
@@ -104,12 +104,12 @@ class Product(models.Model):
 class ProductRating(models.Model):
     user = LastUserField()
     session = LastSessionKeyField()
-    product = models.ForeignKey(Product)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     rating = models.PositiveIntegerField()
 
 
 class WarehouseEntry(models.Model):
-    product = models.ForeignKey(Product)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
 
     audit_log = AuditLog()
@@ -133,9 +133,9 @@ class SaleInvoice(models.Model):
 
 
 class SoldQuantity(models.Model):
-    product = models.ForeignKey(Product)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
-    sale = models.ForeignKey(SaleInvoice)
+    sale = models.ForeignKey(SaleInvoice, on_delete=models.CASCADE)
 
     audit_log = AuditLog()
 
@@ -159,6 +159,6 @@ class PropertyOwner(models.Model):
 
 class Property(models.Model):
     name = models.CharField(max_length=100)
-    owned_by = models.OneToOneField(PropertyOwner)
+    owned_by = models.OneToOneField(PropertyOwner, on_delete=models.CASCADE)
 
     audit_log = AuditLog()

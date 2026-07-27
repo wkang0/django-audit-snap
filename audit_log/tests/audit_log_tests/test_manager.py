@@ -31,11 +31,11 @@ class DisablingTrackingTest(TestCase):
         c1.description = 'best'
         c1.audit_log.disable_tracking()
         c1.save()
-        self.assertEquals(c1.audit_log.all().count(), 1)
+        self.assertEqual(c1.audit_log.all().count(), 1)
         c1.audit_log.enable_tracking()
         c1.description = 'new desc'
         c1.save()
-        self.assertEquals(c1.audit_log.all().count(), 2)
+        self.assertEqual(c1.audit_log.all().count(), 2)
         c1.audit_log.disable_tracking()
         c1.delete()
-        self.assertEquals(ProductCategory.audit_log.all().count(), 3)
+        self.assertEqual(ProductCategory.audit_log.all().count(), 3)

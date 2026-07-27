@@ -14,6 +14,7 @@ sys.path.append(os.path.abspath(os.path.join(BASE_DIR, '..')))
 # decorator, because it would miss the database setup.
 CUSTOM_INSTALLED_APPS = (
     'audit_log',
+    'audit_log.tests.audit_log_tests',
 )
 
 ALWAYS_INSTALLED_APPS = (
@@ -38,10 +39,9 @@ ALWAYS_MIDDLEWARE_CLASSES = (
 settings.configure(
     SECRET_KEY="django_tests_secret_key",
     DEBUG=False,
-    TEMPLATE_DEBUG=False,
     ALLOWED_HOSTS=[],
     INSTALLED_APPS=ALWAYS_INSTALLED_APPS + CUSTOM_INSTALLED_APPS,
-    MIDDLEWARE_CLASSES=ALWAYS_MIDDLEWARE_CLASSES,
+    MIDDLEWARE=ALWAYS_MIDDLEWARE_CLASSES,
     ROOT_URLCONF='tests.urls',
     DATABASES={
         'default': {
@@ -51,20 +51,26 @@ settings.configure(
     LANGUAGE_CODE='en-us',
     TIME_ZONE='UTC',
     USE_I18N=True,
-    USE_L10N=True,
     USE_TZ=True,
     STATIC_URL='/static/',
-    # Use a fast hasher to speed up tests.
     PASSWORD_HASHERS=(
         'django.contrib.auth.hashers.MD5PasswordHasher',
     ),
     FIXTURE_DIRS=glob.glob(BASE_DIR + '/' + '*/fixtures/'),
-
-    AUTH_USER_MODEL = "audit_log.Employee",
-    TEMPLATE_DIRS = (
-        os.path.abspath(os.path.join(BASE_DIR, 'templates')),
-    ),
-    )
+    AUTH_USER_MODEL="audit_log_tests.Employee",
+    TEMPLATES=[{
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.abspath(os.path.join(BASE_DIR, 'templates'))],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    }],
+)
 
 
 

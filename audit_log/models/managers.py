@@ -170,20 +170,19 @@ class AuditLog(object):
 
                     field.primary_key = False
                     field._unique = False
+                    field.__dict__.pop("unique", None)
                     field.db_index = True
 
-                if field.remote_field and field.remote_field.related_name:
-                    field.remote_field.related_name = (
-                        "_auditlog_%s" % field.remote_field.related_name
-                    )
-                elif field.remote_field:
-                    try:
-                        if field.remote_field.get_accessor_name():
-                            field.remote_field.related_name = (
-                                "_auditlog_%s" % field.remote_field.get_accessor_name()
-                            )
-                    except:
-                        pass
+                if field.remote_field:
+                    field.remote_field.on_delete = models.DO_NOTHING
+                    # disable reverse accessor to avoid related_name clashes
+                    # with the original model's fields
+                    field.remote_field.related_name = "+"
+                    # `hidden` and `accessor_name` are cached_property values that
+                    # get shallow-copied with the stale pre-"+" values; evict them
+                    # so they recompute from the new related_name.
+                    field.remote_field.__dict__.pop("hidden", None)
+                    field.remote_field.__dict__.pop("accessor_name", None)
 
                 fields[field.name] = field
 
@@ -213,14 +212,6 @@ class AuditLog(object):
             return result
 
         action_user_field = LastUserField(related_name=rel_name, editable=False)
-
-        # check if the manager has been attached to auth user model
-        if [model._meta.app_label, model.__name__] == getattr(
-            settings, "AUTH_USER_MODEL", "auth.User"
-        ).split("."):
-            action_user_field = LastUserField(
-                related_name=rel_name, editable=False, to="self"
-            )
 
         return {
             "action_id": models.AutoField(primary_key=True),

@@ -8,26 +8,23 @@ from .views import (index, rate_product, CategoryCreateView, ProductCreateView,
                     EmployeeCreateView, EmployeeUpdateView)
 from django.test.client import Client
 
-from django.conf.urls import patterns, include, url
+from django.urls import re_path
+from django.test.utils import override_settings
 
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin
-admin.autodiscover()
-
-urlpatterns = patterns('',
-    url(r'^/$', index),
-    url(r'^rate/(\d)/$', rate_product),
-    url(r'^category/create/$', CategoryCreateView.as_view()),
-    url(r'^product/create/$', ProductCreateView.as_view()),
-    url(r'^product/update/(?P<pk>\d+)/$', ProductUpdateView.as_view()),
-    url(r'^product/delete/(?P<pk>\d+)/$', ProductDeleteView.as_view()),
-    url(r'^extremewidget/create/$', ExtremeWidgetCreateView.as_view()),
-    url(r'^propertyowner/create/$', PropertyOwnerCreateView.as_view()),
-    url(r'^property/create/$', PropertyCreateView.as_view()),
-    url(r'^property/update/(?P<pk>\d+)/$', PropertyUpdateView.as_view()),
-    url(r'^employee/create/$', EmployeeCreateView.as_view()),
-    url(r'^employee/update/(?P<pk>\d+)/$', EmployeeUpdateView.as_view()),
-)
+urlpatterns = [
+    re_path(r'^/$', index),
+    re_path(r'^rate/(\d)/$', rate_product),
+    re_path(r'^category/create/$', CategoryCreateView.as_view()),
+    re_path(r'^product/create/$', ProductCreateView.as_view()),
+    re_path(r'^product/update/(?P<pk>\d+)/$', ProductUpdateView.as_view()),
+    re_path(r'^product/delete/(?P<pk>\d+)/$', ProductDeleteView.as_view()),
+    re_path(r'^extremewidget/create/$', ExtremeWidgetCreateView.as_view()),
+    re_path(r'^propertyowner/create/$', PropertyOwnerCreateView.as_view()),
+    re_path(r'^property/create/$', PropertyCreateView.as_view()),
+    re_path(r'^property/update/(?P<pk>\d+)/$', PropertyUpdateView.as_view()),
+    re_path(r'^employee/create/$', EmployeeCreateView.as_view()),
+    re_path(r'^employee/update/(?P<pk>\d+)/$', EmployeeUpdateView.as_view()),
+]
 
 
 
@@ -52,8 +49,8 @@ def __setup_employees():
     admin.save()
 
 def _setup_admin():
-    from django.conf import settings
-    if settings.AUTH_USER_MODEL =="audit_log.Employee":
+    from django.contrib.auth import get_user_model
+    if get_user_model() is Employee:
         __setup_employees()
     else:
         __setup_admins()
@@ -63,16 +60,16 @@ class LogEntryMetaOptionsTest(TestCase):
 
 
     def test_app_label(self):
-        self.failUnlessEqual(Product.audit_log.model._meta.app_label, Product._meta.app_label)
-        self.failUnlessEqual(WarehouseEntry.audit_log.model._meta.app_label, WarehouseEntry._meta.app_label)
+        self.assertEqual(Product.audit_log.model._meta.app_label, Product._meta.app_label)
+        self.assertEqual(WarehouseEntry.audit_log.model._meta.app_label, WarehouseEntry._meta.app_label)
 
     def test_table_name(self):
-        self.failUnlessEqual(Product.audit_log.model._meta.db_table, "%sauditlogentry"%Product._meta.db_table)
-        self.failUnlessEqual(WarehouseEntry.audit_log.model._meta.db_table, "%sauditlogentry"%WarehouseEntry._meta.db_table)
+        self.assertEqual(Product.audit_log.model._meta.db_table, "%sauditlogentry"%Product._meta.db_table)
+        self.assertEqual(WarehouseEntry.audit_log.model._meta.db_table, "%sauditlogentry"%WarehouseEntry._meta.db_table)
 
 
+@override_settings(ROOT_URLCONF=__name__)
 class TrackingAuthFieldsTest(TestCase):
-    urls = __name__
 
     def setUp(self):
         category  = ProductCategory.objects.create(name = "gadgets", description = "gadgetry")
@@ -117,8 +114,8 @@ class TrackingAuthFieldsTest(TestCase):
         self.assertEqual(product.productrating_set.all()[0].user, None)
 
 
+@override_settings(ROOT_URLCONF=__name__)
 class TrackingChangesTest(TestCase):
-    urls = __name__
 
     def run_client(self, client):
         client.post('/category/create/', {'name': 'Test Category', 'description': 'Test description'})
@@ -197,9 +194,9 @@ class TrackingChangesTest(TestCase):
         c.login(username = "admin@example.com", password = "admin")
         c.post('/extremewidget/create/', {'name': 'Test name', 'special_power': 'Testpower'})
         widget = ExtremeWidget.objects.all()[0]
-        self.failUnlessEqual(widget.audit_log.all()[0].name, 'Test name')
-        self.failUnlessEqual(hasattr(widget.audit_log.all()[0], 'special_power'), True)
-        self.failUnlessEqual(widget.audit_log.all()[0].special_power, "Testpower")
+        self.assertEqual(widget.audit_log.all()[0].name, 'Test name')
+        self.assertEqual(hasattr(widget.audit_log.all()[0], 'special_power'), True)
+        self.assertEqual(widget.audit_log.all()[0].special_power, "Testpower")
 
     def test_logging_custom_user(self):
         _setup_admin()
@@ -208,8 +205,8 @@ class TrackingChangesTest(TestCase):
         c.post('/employee/create/', {'email': 'vvangelovski@gmail.com', 'password': 'testpass'})
 
 
+@override_settings(ROOT_URLCONF=__name__)
 class TestOneToOne(TestCase):
-    urls = __name__
 
     def run_client(self, client):
         client.post('/propertyowner/create/', {'name': 'John Dory'})
